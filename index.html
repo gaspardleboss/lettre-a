@@ -31,13 +31,21 @@ const CONFIG = {
   indice2:      "Quelque chose de chaud et d'orangé…",   // affiché après 2 essais ratés
 
   // Le texte : laisse une ligne vide entre deux paragraphes.
-  texte: `Mon amour,
+  texte: `Mon amour, mon étoile,
 
-[Colle ici le texte de ta lettre. Chaque ligne vide crée un nouveau paragraphe, et les retours à la ligne simples sont conservés.]
+Je sais qu’en ce moment je ne suis pas très fun et que c’est compliqué avec la distance. Tout d’abord, je veux m’excuser, car je sais que je ne suis pas parfait par rapport à ce que tu aurais pu attendre. Je vais tout faire pour être plus actif et moins mou quand on est au téléphone.
 
-Ce paragraphe sert seulement à montrer la mise en page : le texte apparaît doucement au fil de la lecture, sur un papier crème bordé d'un fin liseré ambré.
+Nous avons beaucoup avancé pendant ces 4 ans, et nous allons continuer d’évoluer ensemble encore longtemps.
 
-Et celui-ci aussi, pour que tu voies comment se termine la lettre avant la signature.`,
+Tu me complètes, tu es tout ce que je ne suis pas, et je suis tellement reconnaissant de t’avoir dans ma vie. On est parfaits à deux : tu parles beaucoup, moi peu ; tu sais parler aux gens, moi je sais agir avec eux ; tu réfléchis avec ton cœur, moi avec ma tête. À deux, on est plus forts, on avance mieux et on se tire vers le haut, chacun avec nos meilleurs aspects.
+
+Tu es parfaite. Je me répète souvent dans les compliments que je te fais, mais c’est dur d’en trouver de nouveaux quand je te les dis déjà tous : tu es intelligente, rayonnante, éloquente, et personne ne peut rêver d’une meilleure partenaire que toi dans sa vie. Tu as toujours le sourire, tu es toujours enthousiaste, et c’est une grande force que tu as de rendre n’importe quel endroit joli et agréable. On rit toujours ensemble, on ne fait que passer de bons moments partout où on va.
+
+Je suis là pour toi pour la moindre chose, je ne te juge pas et je t’écoute, depuis 4 ans et pour encore de nombreuses années.
+
+Merci de toujours être la même, même si je suis un peu aigri et que j’ai du mal à communiquer ; merci de ramener de la bonne humeur ; merci d’être toi au quotidien.
+
+Je suis pressé de retrouver une vie avec toi, de ne plus être loin de toi et de pouvoir être collé à toi tout le temps ; heureusement, c’est pour bientôt. Il nous reste de magnifiques jours à deux, et on en profitera.`,
 
   signature:    "Pour toujours, G.",
   motFin:       "Je t'aime"
@@ -359,7 +367,9 @@ section, main{position:relative;z-index:1}
     const p = document.createElement('p');
     bloc.split('\n').forEach((ligne, i) => {
       if (i) p.appendChild(document.createElement('br'));
-      p.appendChild(document.createTextNode(ligne.trim()));
+      // espaces insécables à la française : « ; » « : » « ! » « ? » et « 4 ans » ne se coupent pas
+      const propre = ligne.trim().replace(/ ([;:!?»])/g, ' $1').replace(/(\d) (?=\S)/g, '$1 ');
+      p.appendChild(document.createTextNode(propre));
     });
     texte.appendChild(p);
   });
